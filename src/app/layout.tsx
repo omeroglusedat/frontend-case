@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from 'next/font/google'
+import Providers from "./providers";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -18,8 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} font-sans`}>
-        {children}
+      <body className={`${montserrat.variable} font-sans`} style={{ margin: 0 }}>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
