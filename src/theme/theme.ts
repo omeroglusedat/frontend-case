@@ -51,13 +51,6 @@ const theme = createTheme({
                 }
             }
         },
-        MuiFormControl: {
-            styleOverrides: {
-                root: {
-                    width: '100%'
-                }
-            },
-        },
         MuiInputBase: {
             variants: [
                 {
@@ -72,13 +65,6 @@ const theme = createTheme({
                 }
             ]
         },
-        MuiInputLabel: {
-            styleOverrides: {
-                root: {
-                    fontSize: 16
-                }
-            }
-        },
         MuiButton: {
             defaultProps: {
                 size: 'small'
@@ -89,18 +75,9 @@ const theme = createTheme({
                     height: 32,
                     fontSize: 14,
                     textTransform: 'none',
-                    borderRadius: '16px'
+                    borderRadius: '8px'
                 }
-            },
-            variants: [
-                {
-                    props: {
-                        variant: 'contained'
-                    },
-                    style: {
-                    }
-                }
-            ]
+            }
         },
         MuiBackdrop: {
             styleOverrides: {
