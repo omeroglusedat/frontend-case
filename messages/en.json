@@ -1,0 +1,8 @@
+{
+  "frontEndCase": {
+    "selectedProductCount": "Number of products selected {count}",
+    "takeOutProdcut": "Take out product",
+    "title": "Hello world!",
+    "search": "Search"
+  }
+}

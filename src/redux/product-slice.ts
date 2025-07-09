@@ -4,11 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface ProductSliceType {
     productList: ProductType[] | null,
-    basketItems: ProductType[];
+    productLength: number
+    basketItems: ProductType[],
 }
 
 const initialState: ProductSliceType = {
     productList: null,
+    productLength: 0,
     basketItems: [],
 }
 
@@ -31,6 +33,9 @@ export const productSlice = createSlice({
         },
         setBasketItems: (state, action: PayloadAction<ProductType[]>) => {
             state.basketItems = action.payload
+        },
+        setProductLength: (state, action: PayloadAction<number>) => {
+            state.productLength = action.payload
         }
     }
 });
@@ -41,7 +46,8 @@ export const {
     setProductList,
     addBasketItem,
     removeBasketItem,
-    setBasketItems
+    setBasketItems,
+    setProductLength
 } = productSlice.actions;
 
 export default productSlice.reducer;

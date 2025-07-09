@@ -15,7 +15,7 @@ export default function FECProductCard({ product }: { product: ProductType }) {
 
     return <Stack
         sx={{
-            width: ['100%', '100%', '100%', '23%', '23%'],
+            width: ['100%', '100%', '100%', '213px', '213px'],
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;',
             borderRadius: '10px',
             height: '333px',

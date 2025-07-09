@@ -2,10 +2,12 @@
 
 import FECButton from "../atoms/fec-button";
 import { ProductSliceType, addBasketItem, removeBasketItem } from "@/redux/product-slice";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function FECAddBasketButton({ id, price }: { id: number, price: number }) {
+    const t = useTranslations('frontEndCase');
     const dispatch = useDispatch();
     const basketItems = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.basketItems);
 
@@ -16,7 +18,7 @@ export default function FECAddBasketButton({ id, price }: { id: number, price: n
             setButtonAction('delete');
         else
             setButtonAction('add')
-    }, [basketItems])
+    }, [basketItems]);
 
 
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,6 +34,6 @@ export default function FECAddBasketButton({ id, price }: { id: number, price: n
         variant={'contained'}
         color={buttonAction === 'add' ? 'success' : 'error'}
         onClick={handleClick}>
-        {buttonAction === 'add' ? `${price} ₺` : 'Çıkar'}
+        {buttonAction === 'add' ? `${price} ₺` : t('takeOutProdcut')}
     </FECButton>
 }

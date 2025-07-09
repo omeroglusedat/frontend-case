@@ -5,7 +5,7 @@ import FECContainer from "../atoms/fec-container";
 import FiltersArea from "./filters-area";
 import ProductList from "./product-list";
 import { useDispatch } from "react-redux";
-import { setProductList } from "@/redux/product-slice";
+import { setProductLength, setProductList } from "@/redux/product-slice";
 
 
 export type ProductType = {
@@ -22,10 +22,11 @@ type RatingType = {
     rate: number,
     count: number
 }
-export default function ProductsContainer({ productList }: { productList: ProductType[] }) {
+export default function ProductsContainer({ productList, productCount }: { productList: ProductType[], productCount: number }) {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(setProductList(productList));
+        dispatch(setProductLength(productCount));
     }, [productList])
 
     return <FECContainer sx={{ display: 'flex', flexDirection: ['column', 'column', 'column', 'row', 'row'], gap: 4, position: 'relative', mt: 1, mb: 1 }}>

@@ -16,7 +16,7 @@ export default function ProductDetail({ product }: { product: ProductType }) {
 
     return <FECContainer sx={{ display: 'flex', flexDirection: ['column', 'column', 'column', 'row', 'row'], gap: 2, mt: 1 }}>
         <FECProductImage src={image} width={['100%', '100%', '400px', '400px', '400px']} height={'400px'} />
-        <Stack direction={'column'} gap={1}>
+        <Stack direction={'column'} gap={1} width={'80%'}>
             <FECTypo>{category}</FECTypo>
             <FECTypo>{title}</FECTypo>
             <FECTypo>{description}</FECTypo>
