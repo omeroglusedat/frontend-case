@@ -6,12 +6,16 @@ export interface ProductSliceType {
     productList: ProductType[] | null,
     productLength: number
     basketItems: ProductType[],
+    categoryList: string[],
+    maxPrice: number
 }
 
 const initialState: ProductSliceType = {
     productList: null,
     productLength: 0,
     basketItems: [],
+    categoryList: [],
+    maxPrice: 0
 }
 
 export const productSlice = createSlice({
@@ -19,7 +23,9 @@ export const productSlice = createSlice({
     initialState,
     reducers: {
         setProductList: (state, action: PayloadAction<ProductType[]>) => {
-            state.productList = action.payload
+            state.productList = action.payload;
+            state.categoryList = [...new Set(state.productList.map((p) => p.category))];
+            state.maxPrice = Math.max(...state.productList.map((p) => p.price));
         },
         addBasketItem: (state, action: PayloadAction<number>) => {
             if (state.productList) {

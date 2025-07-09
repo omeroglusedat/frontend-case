@@ -3,6 +3,13 @@
         "selectedProductCount": "Seçilen ürün sayısı: {count}",
         "takeOutProdcut": "Ürünü çıkar",
         "title": "Merhaba Dünya",
-        "search": "Ara"
+        "search": "Ara",
+        "sortPrice": "Fiyata Göre Sırala",
+        "ascSort": "Artan",
+        "descSort": "Azalan",
+        "pleaseSelect": "Seçiniz",
+        "categoryFilter": "Kategori Filtre",
+        "priceRange": "Fiyat Aralığı",
+        "clearFilter": "Filtreyi Temizle"
     }
 }

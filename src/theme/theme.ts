@@ -17,40 +17,6 @@ const theme = createTheme({
         fontFamily: 'Montserrat, sans-serif',
     },
     components: {
-        MuiModal: {
-            variants: [
-                {
-                    props: {},
-                    style: {
-                        '&[aria-labelledby=loading-modal]': {
-                            '& .MuiBox-root': {
-                                backgroundColor: 'transparent',
-                                boxShadow: 'none'
-                            }
-                        }
-                    }
-                }
-            ],
-            styleOverrides: {
-                backdrop: {
-                    backdropFilter: 'blur(5px)',
-                    // '& .MuiBox-root': {
-                    //
-                    //     border: 0,
-                    //     borderRadius: '8px'
-                    // }
-                },
-                root: {
-                    zIndex: 1300,
-                    '&:focus': {},
-                    '& .MuiBox-root': {
-
-                        border: 'none',
-                        borderRadius: '8px'
-                    }
-                }
-            }
-        },
         MuiInputBase: {
             variants: [
                 {
@@ -76,13 +42,6 @@ const theme = createTheme({
                     fontSize: 14,
                     textTransform: 'none',
                     borderRadius: '8px'
-                }
-            }
-        },
-        MuiBackdrop: {
-            styleOverrides: {
-                root: {
-                   background: 'rgba(255, 255, 255, 0.5)'
                 }
             }
         }
