@@ -1,0 +1,15 @@
+{
+  "frontEndCase": {
+    "selectedProductCount": "Number of products selected {count}",
+    "takeOutProdcut": "Take out product",
+    "title": "Hello world!",
+    "search": "Search",
+    "sortPrice": "Sort Price",
+    "ascSort": "ASC",
+    "descSort": "DESC",
+    "pleaseSelect": "Please Select",
+    "categoryFilter": "Category Filter",
+    "priceRange": "Price Range",
+    "clearFilter": "Clear Filter"
+  }
+}
