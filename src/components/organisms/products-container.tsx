@@ -6,6 +6,7 @@ import FiltersArea from "./filters-area";
 import ProductList from "./product-list";
 import { useDispatch } from "react-redux";
 import { setProductLength, setProductList } from "@/redux/product-slice";
+import useResponsive from "@/hooks/useResponsive";
 
 
 export type ProductType = {
@@ -24,13 +25,14 @@ type RatingType = {
 }
 export default function ProductsContainer({ productList, productCount }: { productList: ProductType[], productCount: number }) {
     const dispatch = useDispatch();
+    const { isMobile } = useResponsive();
     useEffect(() => {
         dispatch(setProductList(productList));
         dispatch(setProductLength(productCount));
     }, [productList])
 
     return <FECContainer sx={{ display: 'flex', flexDirection: ['column', 'column', 'column', 'row', 'row'], gap: 4, position: 'relative', mt: 1, mb: 1 }}>
-        <FiltersArea />
+        {!isMobile && <FiltersArea />}
         <ProductList />
     </FECContainer>
 }

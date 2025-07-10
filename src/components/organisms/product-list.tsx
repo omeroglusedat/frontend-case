@@ -9,15 +9,19 @@ import FECInput from "../atoms/fec-input";
 import { useEffect, useState } from "react";
 import { ProductType } from "./products-container";
 import { useSearchParams } from "next/navigation";
+import useResponsive from "@/hooks/useResponsive";
+import FiltersAreaToMobile from "./filters-area-to-mobile";
 
 export default function ProductList() {
-    const productList = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.productList);
-    const [searchText, setSearchText] = useState<string>('');
-    const [filtered, setFiltered] = useState<ProductType[] | null>(null);
     const searchParams = useSearchParams();
     const sort = searchParams.get('sort');
     const category = searchParams.get('category');
     const rangePrice = searchParams.get('rangePrice');
+    const productList = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.productList);
+    const { isMobile } = useResponsive();
+    const [searchText, setSearchText] = useState<string>('');
+    const [filtered, setFiltered] = useState<ProductType[] | null>(null);
+
 
     useEffect(() => {
         if (productList)
@@ -56,9 +60,15 @@ export default function ProductList() {
         direction={'column'}
         alignItems={'center'}
         gap={1}>
-        <FECInput value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+        <Stack direction={'row'} gap={1} width={'100%'}>
+            <FECInput value={searchText} onChange={(e) => setSearchText(e.target.value)} />
+            {
+                isMobile && <FiltersAreaToMobile />
+            }
+        </Stack>
         <Stack
             height={'auto'}
+            width={'100%'}
             direction={['column', 'column', 'column', 'row', 'row']}
             gap={1}
             flexWrap={'wrap'}>
