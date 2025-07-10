@@ -8,8 +8,9 @@ const intlMiddleware = createMiddleware(routing);
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname === '/')
-    return NextResponse.redirect(new URL('/products', request.url));
+  if (pathname === '/' || pathname.split('/').length < 3)
+    return NextResponse.redirect(new URL('/tr/urunler', request.url));
+
 
   const res = intlMiddleware(request);
   return res;

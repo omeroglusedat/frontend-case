@@ -3,6 +3,7 @@
 import { Stack } from "@mui/material";
 import Typo from "../atoms/fec-typo";
 import FECBasketCount from "./fec-basket-count";
+import LanguageSelection from "./language-selection";
 
 export default function NavBar() {
 
@@ -24,7 +25,10 @@ export default function NavBar() {
             alignItems: 'center'
         }}>
             <Typo>Frontend Case</Typo>
-            <FECBasketCount />
+            <Stack direction={'row'} gap={2} alignItems={'center'}>
+                <FECBasketCount />
+                <LanguageSelection />
+            </Stack>
         </Stack>
     </Stack>
 }
