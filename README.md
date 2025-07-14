@@ -4,8 +4,7 @@
 ```bash
 - React (Next.js 14 App Router)
 - TypeScript
-- styled-components 
-- Redux Toolkit
+- styled-components
 - next-intl
 - Jest
 - Context Api
