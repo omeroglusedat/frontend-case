@@ -1,9 +1,36 @@
 'use client';
 
-import { TextField, TextFieldProps } from "@mui/material";
-import { useTranslations } from "next-intl";
+import React from 'react';
+import styled from 'styled-components';
+import { useTranslations } from 'next-intl';
 
-export default function FECInput(props: TextFieldProps) {
-    const t = useTranslations('frontEndCase');
-    return <TextField sx={{ width: '100%' }} size={'small'} {...props} placeholder={t('search')} />
+export interface FECInputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: #0070f3;
+  }
+
+  &::placeholder {
+    color: #aaa;
+  }
+`;
+
+export default function FECInput(props: FECInputProps) {
+  const t = useTranslations('frontEndCase');
+
+  return (
+    <StyledInput
+      {...props}
+      placeholder={props.placeholder ?? t('search')}
+    />
+  );
 }

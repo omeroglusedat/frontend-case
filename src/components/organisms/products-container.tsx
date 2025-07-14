@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FECContainer from "../atoms/fec-container";
 import FiltersArea from "./filters-area";
 import ProductList from "./product-list";
-import { useDispatch } from "react-redux";
-import { setProductLength, setProductList } from "@/redux/product-slice";
-import useResponsive from "@/hooks/useResponsive";
+
+import { useProductContext } from "@/hooks/useProductContext";
+import { useTranslations } from "next-intl";
 
 
 export type ProductType = {
@@ -23,16 +23,33 @@ type RatingType = {
     rate: number,
     count: number
 }
-export default function ProductsContainer({ productList, productCount }: { productList: ProductType[], productCount: number }) {
-    const dispatch = useDispatch();
-    const { isMobile } = useResponsive();
-    useEffect(() => {
-        dispatch(setProductList(productList));
-        dispatch(setProductLength(productCount));
-    }, [productList])
+export default function ProductsContainer() {
+    const t = useTranslations('frontEndCase');
+    const { productCount } = useProductContext();
+    const [isLoading, setIsLoading] = useState(true);
 
-    return <FECContainer sx={{ display: 'flex', flexDirection: ['column', 'column', 'column', 'row', 'row'], gap: 4, position: 'relative', mt: 1, mb: 1 }}>
-        {!isMobile && <FiltersArea />}
+    useEffect(() => {
+        if (productCount) {
+            setIsLoading(false);
+        }
+    }, [productCount]);
+
+
+    if (isLoading) {
+        return <div style={{ padding: 40 }}>{t('loading')}</div>;
+    }
+
+
+    return <FECContainer
+        variants={'media'}
+        style={{
+            display: 'flex',
+            gap: '30px',
+            position: 'relative',
+            marginTop: 1,
+            marginBottom: 1
+        }}>
+        <FiltersArea />
         <ProductList />
     </FECContainer>
 }

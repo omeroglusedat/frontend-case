@@ -1,8 +1,9 @@
-import { Stack } from "@mui/material";
-import { ServerSideComponentProps } from "../page";
-import { error } from "console";
+
+
 import FECTypo from "@/components/atoms/fec-typo";
 import ProductDetail from "@/components/organisms/product-detail";
+import FECStack from "@/components/atoms/fec-stack";
+import { ServerSideComponentProps } from "../../../layout";
 
 
 const getProductById = async (productId: string) => {
@@ -13,17 +14,22 @@ const getProductById = async (productId: string) => {
     return json;
 }
 
-
-
 export default async function ProductDetailById({ params }: ServerSideComponentProps) {
+    console.log('HEREEE');
     const productId = params.productId;
     const productDetail = await getProductById(productId as string);
-    return <Stack height={'93vh'} width={'100%'} justifyContent={'start'} alignItems={'center'}>
+
+    return <FECStack style={{
+        width: '100%',
+        height: '93vh',
+        // justifyContent: 'center',
+        alignItems: 'center'
+    }} >
         {
             productDetail === 'error' && <FECTypo>Ürün Bulunamadı</FECTypo>
         }
         {
-            productDetail !== 'error' && <ProductDetail product={productDetail}/>
+            productDetail !== 'error' && <ProductDetail product={productDetail} />
         }
-    </Stack>
+    </FECStack>
 }

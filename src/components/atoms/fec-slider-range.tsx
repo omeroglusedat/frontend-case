@@ -1,42 +1,141 @@
 'use client';
 
-import { ProductSliceType } from "@/redux/product-slice";
-import { Slider, Stack } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, ChangeEvent } from 'react';
+import styled from 'styled-components';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useProductContext } from '@/hooks/useProductContext';
 
+const SliderContainer = styled.div`
+  position: relative;
+  width: 100%;
+  height: 40px;
+`;
 
-function valuetext(value: number) {
-    return `${value}`;
-}
+const SliderTrack = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 6px;
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 3px;
+`;
+
+// const SliderRange = styled.div<{ left: number; right: number }>`
+//   position: absolute;
+//   top: 50%;
+//   transform: translateY(-50%);
+//   height: 6px;
+//   background-color: #0070f3;
+//   border-radius: 3px;
+//   left: ${({ left }) => left}%;
+//   right: ${({ right }) => right}%;
+// `;
+
+const ThumbInput = styled.input`
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: none;
+  pointer-events: none;
+  appearance: none;
+
+  &::-webkit-slider-thumb {
+    pointer-events: all;
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #0070f3;
+    cursor: pointer;
+    border: none;
+    margin-top: -5px;
+  }
+
+  &::-moz-range-thumb {
+    pointer-events: all;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #0070f3;
+    cursor: pointer;
+    border: none;
+  }
+`;
+
+const LabelRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #444;
+`;
 
 export default function FECSliderRange() {
-    const maxPrice = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.maxPrice);
-    const [value, setValue] = useState<number[]>([0, maxPrice]);
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const rangePrice = searchParams.get('rangePrice');
+  const { maxPrice } = useProductContext();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-    useEffect(() => {
-        setValue([rangePrice ? Number(rangePrice.split(',')[0]) : 0, rangePrice ? Number(rangePrice.split(',')[1]) : maxPrice]);
-    }, [maxPrice, rangePrice])
+  const rangePrice = searchParams.get('rangePrice');
+  const [minVal, setMinVal] = useState(0);
+  const [maxVal, setMaxVal] = useState(maxPrice);
 
-    const handleChange = (event: Event, newValue: number[]) => {
-        setValue(newValue);
-        const params = new URLSearchParams(searchParams.toString());
-        params.set('rangePrice', newValue.toString());
-        router.replace(`?${params.toString()}`);
-    };
-    return <Stack sx={{ width: '100%' }}>
-        <Slider
-            getAriaLabel={() => 'Temperature range'}
-            value={value}
-            onChange={handleChange as any}
-            min={0}
-            max={maxPrice}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
+  useEffect(() => {
+    const min = rangePrice ? Number(rangePrice.split(',')[0]) : 0;
+    const max = rangePrice ? Number(rangePrice.split(',')[1]) : maxPrice;
+
+    if (min !== minVal) setMinVal(min);
+    if (max !== maxVal) setMaxVal(max);
+  }, [maxPrice, rangePrice]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('rangePrice', `${minVal},${maxVal}`);
+    router.replace(`?${params.toString()}`);
+  }, [minVal, maxVal]);
+
+  // const getPercent = (value: number) =>
+  //   Math.round(((value - 0) / (maxPrice - 0)) * 100)
+
+  return (
+    <>
+      <LabelRow>
+        <span>{minVal} ₺</span>
+        <span>{maxVal} ₺</span>
+      </LabelRow>
+
+      <SliderContainer>
+        <SliderTrack />
+        {/* <SliderRange
+          left={getPercent(minVal)}
+          right={100 - getPercent(maxVal)}
+        /> */}
+
+        {/* Sol thumb */}
+        <ThumbInput
+          type="range"
+          min={0}
+          max={maxPrice}
+          value={minVal}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const val = Math.min(Number(e.target.value), maxVal - 1);
+            setMinVal(val);
+          }}
         />
-    </Stack>
+
+        {/* Sağ thumb */}
+        <ThumbInput
+          type="range"
+          min={0}
+          max={maxPrice}
+          value={maxVal}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const val = Math.max(Number(e.target.value), minVal + 1);
+            setMaxVal(val);
+          }}
+        />
+      </SliderContainer>
+    </>
+  );
 }

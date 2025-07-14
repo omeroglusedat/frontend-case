@@ -4,10 +4,11 @@
 ```bash
 - React (Next.js 14 App Router)
 - TypeScript
-- MUI 
+- styled-components 
 - Redux Toolkit
 - next-intl
 - Jest
+- Context Api
 ```
 
 ## 🚀 Installation
@@ -25,7 +26,7 @@ npm run dev
 - 🛒 Basket
 - 🧩 Atomic design structure
 - 🔺 Multi language with path
-- 🌐 Responsive UI with MUI
+- 🌐 Responsive UI with styled-components
 
 ## 🃏 Test (Jest)
 ```bash 
@@ -46,70 +47,10 @@ Done in 4.47s.
 ```
 ## 📊 LightHouse Report
 ```bash 
-    - 🚀 Performance: 67
-    - ♿ Accessibility: 100
+    - 🚀 Performance: 98
+    - ♿ Accessibility: 91
     - 🛠️ Best Practices: 96
     - 🔍 SEO: 100
-```
-
-
-## 📁 Folder Structure
-
-```bash
-next-env.d.ts
-next.config.mjs
-package.json
-README.md
-tsconfig.json
-messages/
-  en.json
-  tr.json
-src/
-  middleware.ts
-  app/
-    favicon.ico
-    layout.tsx
-    providers.tsx
-    [locale]/
-      products/
-        page.tsx
-        [productId]/
-          page.tsx
-  components/
-    atoms/
-      fec-button.tsx
-      fec-container.tsx
-      fec-input.tsx
-      fec-pagination-item.tsx
-      fec-product-image.tsx
-      fec-slider-range.tsx
-      fec-typo.tsx
-      fex-select.tsx
-    molecules/
-      fec-add-basket-button.tsx
-      fec-basket-count.tsx
-      fec-category-filter.tsx
-      fec-clear-filter.tsx
-      fec-nav-bar.tsx
-      fec-pagination.tsx
-      fec-product-card.tsx
-      fec-sort-price.tsx
-    organisms/
-      filters-area.tsx
-      product-detail.tsx
-      product-list.tsx
-      products-container.tsx
-  hooks/
-    useResponsive.ts
-  i18n/
-    navigation.ts
-    request.ts
-    routing.ts
-  redux/
-    product-slice.ts
-    store.ts
-  theme/
-    theme.ts
 ```
 
 

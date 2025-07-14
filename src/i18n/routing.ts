@@ -4,13 +4,13 @@ export const routing = defineRouting({
     locales: ['tr', 'en'],
     defaultLocale: 'tr',
     pathnames: {
-        '/products': {
-            'tr': "/urunler",
-            'en': "/products"
+        '/products/[pageNumber]': {
+            'tr': "/urunler/[pageNumber]",
+            'en': "/products/[pageNumber]"
         },
-        '/products/[productId]': {
-            "tr": "/urunler/[productId]",
-            "en": "/product/[productId]"
+        '/products/[pageNumber]/[productId]': {
+            "tr": "/urunler/[pageNumber]/[productId]",
+            "en": "/product/[pageNumber]/[productId]"
         }
     }
 });

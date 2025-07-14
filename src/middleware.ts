@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname === '/' || pathname.split('/').length < 3)
-    return NextResponse.redirect(new URL('/tr/urunler', request.url));
+    return NextResponse.redirect(new URL('/tr/urunler/1', request.url));
 
 
   const res = intlMiddleware(request);
@@ -17,13 +17,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
-    "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)"
-  ]
+  matcher: ['/((?!api|_next|.*\\..*).*)']
 };

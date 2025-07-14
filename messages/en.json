@@ -10,6 +10,9 @@
     "pleaseSelect": "Please Select",
     "categoryFilter": "Category Filter",
     "priceRange": "Price Range",
-    "clearFilter": "Clear Filter"
+    "clearFilter": "Clear Filter",
+    "loading": "Loading...",
+    "openFilters": "Open Filters",
+    "closeFilters": "Close Filters"
   }
 }

@@ -1,24 +1,22 @@
 'use client';
 
-import { Stack } from "@mui/material";
-import { useSelector } from "react-redux";
-import { ProductSliceType } from "@/redux/product-slice";
 import FECProductCard from "../molecules/fec-product-card";
 import FECPagination from "../molecules/fec-pagination";
 import FECInput from "../atoms/fec-input";
 import { useEffect, useState } from "react";
 import { ProductType } from "./products-container";
 import { useSearchParams } from "next/navigation";
-import useResponsive from "@/hooks/useResponsive";
-import FiltersAreaToMobile from "./filters-area-to-mobile";
+import { useProductContext } from "@/hooks/useProductContext";
+import FECSelect from "../atoms/fec-select";
+import FECStack from "../atoms/fec-stack";
 
 export default function ProductList() {
     const searchParams = useSearchParams();
     const sort = searchParams.get('sort');
     const category = searchParams.get('category');
     const rangePrice = searchParams.get('rangePrice');
-    const productList = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.productList);
-    const { isMobile } = useResponsive();
+
+    const { productList } = useProductContext();
     const [searchText, setSearchText] = useState<string>('');
     const [filtered, setFiltered] = useState<ProductType[] | null>(null);
 
@@ -54,30 +52,44 @@ export default function ProductList() {
         return pList
     }
 
-    return <Stack
-        minHeight={'90vh'}
-        width={['100%', '100%', '100%', '80%', '80%']}
-        direction={'column'}
-        alignItems={'center'}
-        gap={1}>
-        <Stack direction={'row'} gap={1} width={'100%'}>
+    return <FECStack
+        mobilestyles={`
+            width: 100% !important;
+        `}
+        style={{
+            minHeight: '90vh',
+            width: '80%',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '10px'
+        }}>
+        <FECStack style={{ flexDirection: 'row', gap: '10px', width: '100%' }}>
             <FECInput value={searchText} onChange={(e) => setSearchText(e.target.value)} />
-            {
-                isMobile && <FiltersAreaToMobile />
-            }
-        </Stack>
-        <Stack
-            height={'auto'}
-            width={'100%'}
-            direction={['column', 'column', 'column', 'row', 'row']}
-            gap={1}
-            flexWrap={'wrap'}>
-            {
-                filtered && filtered.map((product, index) => (
-                    <FECProductCard key={`product-item-${index}`} product={product} />
-                ))
-            }
-        </Stack>
+        </FECStack>
+        <FECStack
+            style={{
+                height: 'auto',
+                width: '100%',
+            }}>
+            <FECStack mobilestyles={`
+                    flex-direction: column;
+                    margin: 10px;
+                    width: 95.5% !important;
+                `}
+                style={{
+                    height: 'auto',
+                    width: '100%',
+                    flexDirection: 'row',
+                    gap: '10px',
+                    flexWrap: 'wrap'
+                }}>
+                {
+                    filtered && filtered.map((product, index) => (
+                        <FECProductCard key={`product-item-${index}`} product={product} />
+                    ))
+                }
+            </FECStack>
+        </FECStack>
         <FECPagination />
-    </Stack>
+    </FECStack>
 }

@@ -1,8 +1,8 @@
 'use client';
 
-import { Divider, Stack } from "@mui/material";
 import { usePathname, useSearchParams } from "next/navigation";
 import FECTypo from "../atoms/fec-typo";
+import FECStack from "../atoms/fec-stack";
 
 export default function LanguageSelection() {
     const pathname = usePathname();
@@ -10,12 +10,25 @@ export default function LanguageSelection() {
     const lang = pathname.split('/')[1];
 
     const handleClick = (lang: string) => {
-        window.location.href = `/${lang}/urunler?${params.toString()}`;
+        window.location.href = `/${lang}/${pathname.substring(4, pathname.length)}?${params.toString()}`;
     }
 
-    return <Stack direction={'row'} gap={0.2}>
-        <FECTypo sx={{ '&:hover': { cursor: 'pointer' } }} fontWeight={lang === 'tr' ? 'bold' : ''} fontSize={'14px'} onClick={() => handleClick('tr')}>TR</FECTypo>
-        <Divider orientation={'vertical'} />
-        <FECTypo sx={{ '&:hover': { cursor: 'pointer' } }} fontWeight={lang === 'en' ? 'bold' : ''} fontSize={'14px'} onClick={() => handleClick('en')}> EN</FECTypo>
-    </Stack >
+    return <FECStack style={{ flexDirection: 'row', gap: '4px' }}>
+        <FECTypo hover={`
+            {
+                cursor: pointer;
+            }
+        `} style={{
+                fontSize: '14px',
+                fontWeight: lang === 'tr' ? 'bold' : ''
+            }} onClick={() => handleClick('tr')}>TR</FECTypo>
+        <FECTypo hover={`
+            {
+                cursor: pointer;
+            }
+        `} style={{
+                fontSize: '14px',
+                fontWeight: lang === 'en' ? 'bold' : ''
+            }} onClick={() => handleClick('en')}> EN</FECTypo>
+    </FECStack >
 }

@@ -1,20 +1,17 @@
 'use client';
 
+import { useProductContext } from "@/hooks/useProductContext";
 import FECButton from "../atoms/fec-button";
-import { ProductSliceType, addBasketItem, removeBasketItem } from "@/redux/product-slice";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 export default function FECAddBasketButton({ id, price }: { id: number, price: number }) {
     const t = useTranslations('frontEndCase');
-    const dispatch = useDispatch();
-    const basketItems = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.basketItems);
-
+    const { basketItems, addBasketItem, removeBasketItem } = useProductContext();
     const [buttonAction, setButtonAction] = useState<'add' | 'delete'>('add');
 
     useEffect(() => {
-        if (basketItems.filter((f) => f.id === id).length > 0)
+        if (basketItems && basketItems.filter((f) => f.id === id).length > 0)
             setButtonAction('delete');
         else
             setButtonAction('add')
@@ -24,15 +21,13 @@ export default function FECAddBasketButton({ id, price }: { id: number, price: n
     const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
         if (buttonAction === 'add')
-            dispatch(addBasketItem(id));
+            addBasketItem(id);
         else
-            dispatch(removeBasketItem(id))
-
+            removeBasketItem(id);
     }
 
     return <FECButton
-        variant={'contained'}
-        color={buttonAction === 'add' ? 'success' : 'error'}
+        variant={buttonAction === 'add' ? 'primary' : 'secondary'}
         onClick={handleClick}>
         {buttonAction === 'add' ? `${price} ₺` : t('takeOutProdcut')}
     </FECButton>

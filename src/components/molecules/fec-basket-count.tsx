@@ -1,16 +1,15 @@
 'use client';
 
-import { useSelector } from "react-redux";
 import FECTypo from "../atoms/fec-typo";
-import { ProductSliceType } from "@/redux/product-slice";
 import { useTranslations } from "next-intl";
+import { useProductContext } from "@/hooks/useProductContext";
 
 export default function FECBasketCount() {
     const t = useTranslations('frontEndCase')
-    const basketCount = useSelector((state: { productSlice: ProductSliceType }) => state.productSlice.basketItems.length);
+    const { basketItems } = useProductContext();
 
-    if (basketCount === 0)
+    if (basketItems.length === 0)
         return <div />
 
-    return <FECTypo>{t('selectedProductCount', { count: basketCount })}</FECTypo>
+    return <FECTypo>{t('selectedProductCount', { count: basketItems.length })}</FECTypo>
 }

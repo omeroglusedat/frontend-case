@@ -10,6 +10,9 @@
         "pleaseSelect": "Seçiniz",
         "categoryFilter": "Kategori Filtre",
         "priceRange": "Fiyat Aralığı",
-        "clearFilter": "Filtreyi Temizle"
+        "clearFilter": "Filtreyi Temizle",
+        "loading": "Yükleniyor...",
+        "openFilters": "Filtre Aç",
+        "closeFilters": "Filtre Kapat"
     }
 }

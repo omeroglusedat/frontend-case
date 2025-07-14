@@ -1,33 +1,34 @@
 'use client';
 
-import { Stack } from "@mui/material";
 import FECTypo from "./fec-typo";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import FECStack from "./fec-stack";
 
 export default function FECPaginationItem({ value }: { value: number }) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const page = searchParams.get('p') || '1';
-
+    const pathname = usePathname();
     const handleClick = () => {
         const params = new URLSearchParams(searchParams.toString());
-        params.set('p', value.toString());
-        router.replace(`?${params.toString()}`);
+        router.push(`${pathname.substring(0, pathname.length - 1)}${value}?${params.toString()}`);
     }
-    return <Stack
-        sx={{
+    
+    return <FECStack
+        hover={`
+            {
+                cursor: pointer;
+            }
+        `}
+        style={{
             border: '1px solid lightgray',
             borderRadius: '8px',
             width: 'max-content',
-            bgcolor: Number(page) === value ? 'lightgray' : 'white',
-            '&:hover': {
-                cursor: "pointer"
-            }
+            backgroundColor: Number(pathname.split('/')[3]) === value ? 'lightgray' : 'white',
         }}
         onClick={handleClick}>
-        <FECTypo m={1}>
+        <FECTypo style={{ margin: '10px' }}>
             {value}
         </FECTypo>
-    </Stack>
+    </FECStack>
 
 }
