@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import PContext from "@/contexts/product-context";
 import { ProductType } from "@/components/organisms/products-container";
 import FECNavBar from "@/components/molecules/fec-nav-bar";
+import BContext from "@/contexts/basket-context";
 
 const montserrat = Montserrat({
     subsets: ['latin'],
@@ -51,10 +52,12 @@ export default async function RootLayout({
             <body className={`${montserrat.variable} font-sans`} style={{ margin: 0, position: 'relative' }}>
                 <NextIntlClientProvider>
                     <PContext _productList={data as ProductType[]} _productCount={productCount}>
-                        <>
-                            <FECNavBar />
-                            {children}
-                        </>
+                        <BContext>
+                            <>
+                                <FECNavBar />
+                                {children}
+                            </>
+                        </BContext>
                     </PContext>
                 </NextIntlClientProvider>
             </body>

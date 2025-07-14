@@ -15,7 +15,6 @@ const getProductById = async (productId: string) => {
 }
 
 export default async function ProductDetailById({ params }: ServerSideComponentProps) {
-    console.log('HEREEE');
     const productId = params.productId;
     const productDetail = await getProductById(productId as string);
 

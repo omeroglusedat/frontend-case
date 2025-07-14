@@ -4,10 +4,11 @@ import { useProductContext } from "@/hooks/useProductContext";
 import FECButton from "../atoms/fec-button";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { useBasketContext } from "@/hooks/useBasketContext";
 
 export default function FECAddBasketButton({ id, price }: { id: number, price: number }) {
     const t = useTranslations('frontEndCase');
-    const { basketItems, addBasketItem, removeBasketItem } = useProductContext();
+    const { basketItems, addBasketItem, removeBasketItem } = useBasketContext();
     const [buttonAction, setButtonAction] = useState<'add' | 'delete'>('add');
 
     useEffect(() => {
